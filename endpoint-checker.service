@@ -1,0 +1,17 @@
+[Unit]
+Description=endpoint-checker
+After=ngrok.service
+
+[Service]
+ExecStart=/opt/endpoint-checker/endpoint-checker.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+IgnoreSIGPIPE=true
+Restart=always
+RestartSec=3
+Type=simple
+StandardOutput=append:/opt/endpoint-checker/runtime.log
+StandardError=append:/opt/endpoint-checker/error.log
+
+[Install]
+WantedBy=multi-user.target
